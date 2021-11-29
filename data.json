@@ -1,8 +1,8 @@
 {
 	"euro2": [
 		{
-			"link": "test1",
-			"used": 0
+			"link": "https://example.com",
+			"used": 2
 		}
 	],
 	"euro4": [
@@ -32,6 +32,16 @@
 			"name": "Jort",
 			"email": "test@example.com",
 			"amount": 3
+		},
+		{
+			"name": "test",
+			"email": "test",
+			"amount": 1
+		},
+		{
+			"name": "test",
+			"email": "test",
+			"amount": 1
 		}
 	]
 }

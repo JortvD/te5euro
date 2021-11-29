@@ -17,6 +17,7 @@
 		<script src="js/skel-layers.min.js"></script>
 		<script src="js/init.js"></script>
         <script src="js/swipe.js"></script>
+        <script src="js/qrcode.min.js"></script>
         
 		<noscript>
 			<link rel="stylesheet" href="css/skel.css" />
@@ -27,6 +28,66 @@
 			#titleBar {display:none !important;}
 			#bannertitle {background: none !important;}
 			.button, .register {color: black !important;}
+
+			.form {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.form.error {
+				color: red;
+			}
+
+			.form > * {
+				margin-bottom: 8px;
+			}
+
+			.form-input {
+				background: white !important;
+			}
+
+			#form-double {
+				display: flex;
+				flex-direction: row;
+				background: none !important;
+				align-items: center;
+			}
+
+			#form-double input {
+				flex-grow: 1;
+				padding: .5em 0.75em;
+			}
+			
+			#form-double div {
+				flex-grow: 0;
+				margin-left: 8px;
+			}
+
+			#form-button {
+				background: #555555;
+				transition: .3s all;
+				border: none;
+				padding: 16px 32px;
+				cursor: pointer;
+				color: white;
+				font-size: 20px;
+			}
+
+			#form-button.error {
+				background: #cc0000;
+			}
+
+			#form-button.error:hover {
+				background: #cc0000;
+			}
+
+			#form-button:active {
+				outline: none;
+			}
+
+			#form-button:hover {
+				background: #3C3C3C;
+			}
 		</style>
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 	</head>
@@ -60,12 +121,88 @@
 						<div id="interested-text" class="6u">
 							<h3>Wilt u doneren?</h3>
 							<p>Door te doneren aan Team Seas via onze website doneert u én aan een goed doel én maakt u kans op een mooi bosje bloemen!</p>
-							<a style="line-height: 120%; width: 100%" href="https://forms.gle/QkHoEKtPfUSHBtdX6" target="_blank" class="button register"><b>Klik hier om <br> mee te doen!</b></a>
+							<div class="form" id="form">
+								<input class="form-input" type="text" placeholder="Uw naam..." id="form-name">
+								<input class="form-input" type="text" placeholder="Uw email-adres..." id="form-email">
+								<div class="form-input" id="form-double">
+									<input type="number" value="1" id="form-amount" step=1 min=1 max=3>
+									<div>loten</div>
+								</div>
+								<button id="form-button">Kopen</button>
+							</div>
+							<!-- <a style="line-height: 120%; width: 100%" href="https://forms.gle/QkHoEKtPfUSHBtdX6" target="_blank" class="button register"><b>Klik hier om <br> mee te doen!</b></a> -->
 							<!-- <a style="line-height: 120%; width: 100%" href="#" class="button register">De inschrijvingen zijn <br> nog niet geopend</a> -->
 						</div>
 					</div>
 				</section>
 			</div>
+		
+			<script>
+				const button = document.getElementById("form-button")
+				let timeout = false;
+				button.addEventListener("click", event => {
+					if (timeout == true) return;
+					let name = document.getElementById("form-name").value.trim();
+					let email = document.getElementById("form-email").value.trim();
+					let amount = document.getElementById("form-amount").value;
 
+					if(name == "" || email == "") {
+						button.classList.add("error");
+						timeout = true;
+
+						setTimeout(() => {
+							timeout = false;
+							button.classList.remove("error");
+						}, 3000);
+
+						return;
+					}
+
+					$.ajax("/request", {
+						type: "GET",
+						data: {name, email, amount},
+						statusCode: {
+							200: function (response) {
+								let data = JSON.parse(response);
+								
+								let form = document.getElementById("form");
+								form.innerHTML = "";
+
+								let text = document.createElement("div");
+								text.innerText = "Bedankt voor het kopen van het lot. U kunt nu betalen met de volgende QR code of link:";
+								form.appendChild(text);
+
+								let qr = document.createElement("div");
+								qr.id = "qr-code";
+								form.appendChild(qr);
+
+								let link = document.createElement("a");
+								link.href = data.link;
+								link.innerText = "Of gebruik deze link.";
+								form.appendChild(link);
+
+								var qrcode = new QRCode("qr-code", {
+									text: data.link,
+									width: 256,
+									height: 256,
+									colorDark : "#000000",
+									colorLight : "#ffffff",
+									correctLevel : QRCode.CorrectLevel.H
+								});
+							},
+							500: function (response) {
+								let form = document.getElementById("form");
+								form.classList.add("error")
+								form.innerHTML = "Er was een error bij het aanmaken van de betaling. Probeer het alstublieft opnieuw.";
+							},
+							400: function (response) {
+								let form = document.getElementById("form");
+								form.classList.add("error")
+								form.innerHTML = "Er was een error bij het aanmaken van de betaling. Probeer het alstublieft opnieuw.";
+							}
+						}
+					});
+				});
+			</script>
 	</body>
 </html>
