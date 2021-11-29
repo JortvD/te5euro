@@ -7,13 +7,13 @@
 	],
 	"euro4": [
 		{
-			"link": "test2",
+			"link": "https://example.com",
 			"used": 0
 		}
 	],
 	"euro5": [
 		{
-			"link": "test3",
+			"link": "https://example.com",
 			"used": 1
 		}
 	],
@@ -22,26 +22,6 @@
 			"name": "",
 			"email": "",
 			"amount": 0
-		},
-		{
-			"name": "Jort",
-			"email": "test@example.com",
-			"amount": 3
-		},
-		{
-			"name": "Jort",
-			"email": "test@example.com",
-			"amount": 3
-		},
-		{
-			"name": "test",
-			"email": "test",
-			"amount": 1
-		},
-		{
-			"name": "test",
-			"email": "test",
-			"amount": 1
 		}
 	]
 }
