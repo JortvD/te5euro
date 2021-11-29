@@ -36,8 +36,10 @@ let server = http.createServer((req, res) => {
       }
       break;
     default:
+      let path = requrl.pathname;
+      if(path == "/") path = "/index.html";
       try {
-        const data = fs.readFileSync("." + requrl.pathname);
+        const data = fs.readFileSync("." + path);
         res.statusCode = 200;
         res.end(data);
       } catch {
