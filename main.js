@@ -15,6 +15,8 @@ let server = http.createServer((req, res) => {
 
       data.buyers.push({name, email, amount});
 
+      console.log(`${name} heeft ${amount} loten gekocht met email ${email}`);
+
       if(amount == 1) {
         const link = getLink(data.euro2);
         res.statusCode = 200;
@@ -43,6 +45,7 @@ let server = http.createServer((req, res) => {
         res.statusCode = 200;
         res.end(data);
       } catch {
+        console.log(path + " werd aangevraagd maar niet gevonden");
         res.statusCode = 500;
         res.end();
       }
