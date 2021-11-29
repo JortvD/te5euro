@@ -31,7 +31,7 @@ let server = http.createServer((req, res) => {
       else if(amount == 3) {
         const link = getLink(data.euro5);
         res.statusCode = 200;
-        res.end(JSON.stringify({link}));
+        res.end(JSON.stringify({link})); 
       }
       else {
         res.statusCode = 400;
@@ -49,7 +49,7 @@ let server = http.createServer((req, res) => {
   } 
 });
 
-server.listen(8080)
+server.listen(8281)
 
 let getLink = arr => {
   for(let item of arr) {
