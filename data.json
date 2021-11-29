@@ -1,0 +1,37 @@
+{
+	"euro2": [
+		{
+			"link": "test1",
+			"used": 0
+		}
+	],
+	"euro4": [
+		{
+			"link": "test2",
+			"used": 0
+		}
+	],
+	"euro5": [
+		{
+			"link": "test3",
+			"used": 1
+		}
+	],
+	"buyers": [
+		{
+			"name": "",
+			"email": "",
+			"amount": 0
+		},
+		{
+			"name": "Jort",
+			"email": "test@example.com",
+			"amount": 3
+		},
+		{
+			"name": "Jort",
+			"email": "test@example.com",
+			"amount": 3
+		}
+	]
+}
