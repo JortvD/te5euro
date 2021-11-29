@@ -4,9 +4,6 @@ const fs = require("fs");
 
 const data = require("./data.json");
 
-const htmlFile = fs.readFileSync("./index.html");
-const cssFile = fs.readFileSync("./stylesheet.css");
-
 let server = http.createServer((req, res) => {
   const requrl = new url.URL("http://test.com" + req.url);
   
@@ -38,13 +35,15 @@ let server = http.createServer((req, res) => {
         res.end("ERROR");
       }
       break;
-    case "/":
-      res.statusCode = 200;
-      res.end(htmlFile);
-      break;
-    case "/stylesheet.css":
-      res.statusCode = 200;
-      res.end(cssFile);
+    default:
+      try {
+        const data = fs.readFileSync("." + requrl.pathname);
+        res.statusCode = 200;
+        res.end(data);
+      } catch {
+        res.statusCode = 500;
+        res.end();
+      }
       break;
   } 
 });
