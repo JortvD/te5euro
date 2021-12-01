@@ -22,13 +22,23 @@ let server = http.createServer((req, res) => {
         res.statusCode = 200;
         res.end(JSON.stringify({link}));
       }
-      else if(amount == 2) {
-        const link = getLink(data.euro4);
+      else if(amount == 3) {
+        const link = getLink(data.euro5);
         res.statusCode = 200;
         res.end(JSON.stringify({link}));
       }
-      else if(amount == 3) {
-        const link = getLink(data.euro5);
+      else if(amount == 6) {
+        const link = getLink(data.euro10);
+        res.statusCode = 200;
+        res.end(JSON.stringify({link})); 
+      }
+      else if(amount == 9) {
+        const link = getLink(data.euro15);
+        res.statusCode = 200;
+        res.end(JSON.stringify({link})); 
+      }
+      else if(amount == 18) {
+        const link = getLink(data.euro30);
         res.statusCode = 200;
         res.end(JSON.stringify({link})); 
       }

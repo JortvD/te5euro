@@ -5,13 +5,25 @@
 			"used": 2
 		}
 	],
-	"euro4": [
+	"euro5": [
 		{
 			"link": "https://example.com",
 			"used": 0
 		}
 	],
-	"euro5": [
+	"euro10": [
+		{
+			"link": "https://example.com",
+			"used": 1
+		}
+	],
+	"euro15": [
+		{
+			"link": "https://example.com",
+			"used": 2
+		}
+	],
+	"euro30": [
 		{
 			"link": "https://example.com",
 			"used": 1
@@ -22,6 +34,11 @@
 			"name": "",
 			"email": "",
 			"amount": 0
+		},
+		{
+			"name": "dsdfgdf",
+			"email": "dfgdfgdfg",
+			"amount": 9
 		}
 	]
 }

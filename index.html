@@ -53,9 +53,12 @@
 				align-items: center;
 			}
 
-			#form-double input {
+			#form-double select {
 				flex-grow: 1;
 				padding: .5em 0.75em;
+				background: white;
+				border-radius: 0;
+				border: 1px solid black;
 			}
 			
 			#form-double div {
@@ -99,7 +102,8 @@
 			<!-- Banner -->
 				<div id="banner">
 					<section class="container">
-						<h2 id="bannertitle">Steun Team Seas</h2>
+						<h2 id="bannertitle">Help Team Seas</h2>
+						<h3>Steun Team Seas</h2>
 						<p>&nbsp;</p>
 					</section>
 				</div>
@@ -117,18 +121,32 @@
 								Het doel van de opdracht is om met 5 euro startkapitaal zoveel mogelijk waarde te creëren. Wij doen dit door zo veel mogelijk geld op te halen voor een goed doel. Het door ons gekozen goede doel is Team Seas.</span>
                                 <span class="byline">Voor zij die Team Seas niet kennen, Team Seas is een goed doel dat geld ophaalt om plastic van stranden en uit de oceaan te verwijderen. Daarnaast probeert het de toevoer plastic naar de oceaan zo veel mogelijk te beperken. Het geld wordt 50/50 door Team Seas verdeeld over de non-profit organisaties Ocean Conservancy en The Ocean Cleanup.</span>
 							</header>
+							<header class="major">
+								<h2>Who are we and why are we organising this action?</h2>
+								<span class="byline">We are a group of students at the Eindhoven University of Technology. For a group project of a subject about entrepreneurship we organise this lottery to collect as much money as possible for a good cause.
+									The goal of the project is to create as much value as possible with 5 euros of starting capital. We do this by raising as much money as possible for a good cause. Our chosen charity is Team Seas.</span>
+                                <span class="byline">For those who don't know Team Seas, Team Seas is a charity that raises money to remove plastic from beaches and the ocean. It also tries to reduce the amount of plastic entering the ocean as much as possible. The money is divided 50/50 by Team Seas between the non-profit organisations Ocean Conservancy and The Ocean Cleanup.</span>
+							</header>
 						</div>
 						<div id="interested-text" class="6u">
 							<h3>Wilt u een ticket kopen?</h3>
-							<p>Door een ticket te kopen voor deze 'loterij' via onze website doneert u aan Team Seas én maakt u kans op een mooi bosje bloemen! <br><br> 1 Ticket = 2 Euro, 3 Tickets = 5 Euro, 6 Tickets = 10 Euro, 9 Tickets = 15 Euro en 18 Tickets = 30 Euro</p>
+							<p>Door een ticket te kopen voor deze 'loterij' via onze website doneert u aan Team Seas én maakt u kans op een mooi bosje bloemen! <br> 1 Ticket = 2 Euro, 3 Tickets = 5 Euro, 6 Tickets = 10 Euro, 9 Tickets = 15 Euro en 18 Tickets = 30 Euro</p>
+							<h3>Do you want to buy a ticket?</h3>
+							<p>By buying a ticket for this 'lottery' via our website, you donate to Team Seas and have the chance to win a nice bunch of flowers!<br> 1 Ticket = 2 Euro, 3 Tickets = 5 Euro, 6 Tickets = 10 Euro, 9 Tickets = 15 Euro and 18 Tickets = 30 Euro.</p>
 							<div class="form" id="form">
-								<input class="form-input" type="text" placeholder="Uw naam..." id="form-name">
-								<input class="form-input" type="text" placeholder="Uw email-adres..." id="form-email">
+								<input class="form-input" type="text" placeholder="Uw naam / Our name..." id="form-name">
+								<input class="form-input" type="text" placeholder="Uw email-adres / Our emailaddress..." id="form-email">
 								<div class="form-input" id="form-double">
-									<input type="number" value="1" id="form-amount" step=1 min=1 max=3>
-									<div>loten</div>
+									<select id="form-amount" value="1">
+										<option value="1">1</option>
+										<option value="3">3</option>
+										<option value="6">6</option>
+										<option value="9">9</option>
+										<option value="18">18</option>
+									</select>
+									<div>loten / tickets</div>
 								</div>
-								<button id="form-button">Kopen</button>
+								<button id="form-button">€2 - Kopen / Buy</button>
 							</div>
 							<!-- <a style="line-height: 120%; width: 100%" href="https://forms.gle/QkHoEKtPfUSHBtdX6" target="_blank" class="button register"><b>Klik hier om <br> mee te doen!</b></a> -->
 							<!-- <a style="line-height: 120%; width: 100%" href="#" class="button register">De inschrijvingen zijn <br> nog niet geopend</a> -->
@@ -140,11 +158,26 @@
 			<script>
 				const button = document.getElementById("form-button")
 				let timeout = false;
+				const value = parseInt(document.getElementById("form-amount").value);
+					const map = {
+						1: 2,
+						3: 5,
+						6: 10,
+						9: 15,
+						18: 30
+					}
+					button.innerText = `€${map[value]} - Kopen / Buy`;
+
+				document.getElementById("form-amount").addEventListener("change", () => {
+					const value = parseInt(document.getElementById("form-amount").value);
+					button.innerText = `€${map[value]} - Kopen / Buy`;
+				});
+
 				button.addEventListener("click", event => {
 					if (timeout == true) return;
 					let name = document.getElementById("form-name").value.trim();
 					let email = document.getElementById("form-email").value.trim();
-					let amount = document.getElementById("form-amount").value;
+					let amount = parseInt(document.getElementById("form-amount").value);
 
 					if(name == "" || email == "") {
 						button.classList.add("error");
